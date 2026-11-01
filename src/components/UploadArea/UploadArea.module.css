@@ -1,0 +1,38 @@
+.uploadBox {
+	border: 2px dashed #d1d5db;
+	border-radius: 12px;
+	padding: 0px;
+	text-align: center;
+	background-color: #f9fafb;
+	transition: all 0.2s ease;
+}
+
+.uploadBox:hover {
+	border-color: #3b82f6;
+	background-color: #eff6ff;
+}
+
+.hiddenInput {
+	display: none;
+}
+
+.label {
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+	font-size: 100%;
+	margin: auto;
+	padding: 12%;
+}
+
+.icon {
+	font-size: 32px;
+}
+
+.text {
+	color: #4b5563;
+	font-weight: 500;
+	font-size: 16px;
+}
