@@ -1,14 +1,18 @@
-import React from 'react';
-import styles from './Button.module.css';
+import React from 'react'
+import styles from './Button.module.css'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-	variant?: 'primary' | 'secondary' | 'outline';
+	variant?: 'primary' | 'secondary' | 'outline'
 }
 
-export const Button: React.FC<ButtonProps> = ({ children, variant = 'primary', ...props }) => {
+export const Button: React.FC<ButtonProps> = ({
+	children,
+	variant = 'primary',
+	...props
+}) => {
 	return (
 		<button className={`${styles.button} ${styles[variant]}`} {...props}>
-	{children}
-	</button>
-);
-};
+			{children}
+		</button>
+	)
+}

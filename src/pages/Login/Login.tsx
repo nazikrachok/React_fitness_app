@@ -1,15 +1,17 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
 import { InputField } from '../../components/InputField/InputField'
 import { Button } from '../../components/Button/Button'
 import styles from './Login.module.css'
+import { useAuth } from '../../hooks/useAuth.ts'
 
 export const Login: React.FC = () => {
-	const navigate = useNavigate()
+	const { login, isLoading, error } = useAuth()
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
 
-	const handleLogin = (e: React.ChangeEvent) => {
+	const handleLogin = (e: React.FormEvent) => {
 		e.preventDefault()
-		navigate('/home')
+		login(email, password)
 	}
 
 	return (
@@ -21,20 +23,25 @@ export const Login: React.FC = () => {
 				</p>
 
 				<form onSubmit={handleLogin}>
+					{error && (
+						<div style={{ color: 'red', fontWeight: 'bold' }}>{error}</div>
+					)}
 					<InputField
 						label='Email address'
 						type='email'
 						placeholder='nazar@example.com'
 						required
+						onChange={(e) => setEmail(e.target.value)}
 					/>
 					<InputField
 						label='Password'
 						type='password'
 						placeholder='••••••••'
 						required
+						onChange={(e) => setPassword(e.target.value)}
 					/>
 					<Button type='submit' variant='primary'>
-						Log in
+						{isLoading ? 'Logging in...' : 'Log in'}
 					</Button>
 				</form>
 			</div>

@@ -1,9 +1,22 @@
 import React from 'react'
 import { PageLayout } from '../../components/PageLayout/PageLayout'
 import { FiMessageSquare, FiPlay, FiInfo } from 'react-icons/fi'
+import { useTrainer } from '../../hooks/useTrainer'
 import styles from './FitnessTrainer.module.css'
 
 export const FitnessTrainer: React.FC = () => {
+	const { workout, isLoading } = useTrainer()
+
+	if (isLoading || !workout) {
+		return (
+			<PageLayout>
+				<div className={styles.header}>
+					<h1 className={styles.title}>Loading your AI workout...</h1>
+				</div>
+			</PageLayout>
+		)
+	}
+
 	return (
 		<PageLayout>
 			<div className={styles.header}>
@@ -31,24 +44,20 @@ export const FitnessTrainer: React.FC = () => {
 				<div className={styles.rightColumn}>
 					<div className={styles.workoutCard}>
 						<h3 className={styles.cardTitle}>Today’s workout</h3>
-						<h4 className={styles.workoutType}>Upper body</h4>
+						<h4 className={styles.workoutType}>{workout.type}</h4>
 
 						<ul className={styles.exerciseList}>
-							<li>
-								<span className={styles.exerciseName}>Bench press</span>
-								<span className={styles.exerciseReps}>4 x 8</span>
-							</li>
-							<li>
-								<span className={styles.exerciseName}>Pull ups</span>
-								<span className={styles.exerciseReps}>3 x 10</span>
-							</li>
-							<li>
-								<span className={styles.exerciseName}>Shoulder press</span>
-								<span className={styles.exerciseReps}>3 x 10</span>
-							</li>
+							{workout.exercises.map((exercise, index) => (
+								<li key={index}>
+									<span className={styles.exerciseName}>{exercise.name}</span>
+									<span className={styles.exerciseReps}>{exercise.reps}</span>
+								</li>
+							))}
 						</ul>
 
-						<div className={styles.duration}>Duration: 45 min</div>
+						<div className={styles.duration}>
+							Duration: {workout.duration} min
+						</div>
 
 						<button className={styles.startBtn}>
 							<FiPlay /> Start workout
@@ -59,9 +68,7 @@ export const FitnessTrainer: React.FC = () => {
 						<h3 className={styles.recommendationTitle}>
 							<FiInfo /> AI recommendation:
 						</h3>
-						<p className={styles.recommendationText}>
-							You trained chest recently. Today focus on back and shoulders.
-						</p>
+						<p className={styles.recommendationText}>{workout.aiTip}</p>
 					</div>
 				</div>
 			</div>

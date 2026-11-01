@@ -13,7 +13,7 @@ function App() {
 				<Route path='/home' element={<Home />} />
 				<Route path='/food' element={<FoodAnalysis />} />
 				<Route path='/trainer' element={<FitnessTrainer />} />
-				<Route path='/settings' element={<Settings />}/>
+				<Route path='/settings' element={<Settings />} />
 			</Routes>
 		</BrowserRouter>
 	)
